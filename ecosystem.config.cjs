@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'coast-rate-source',
+      name: 'web-api-landing-rate',
       script: 'dist/server.js',
       cwd: __dirname,
       instances: 1,

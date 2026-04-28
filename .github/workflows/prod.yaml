@@ -67,5 +67,5 @@ jobs:
 
           echo "Health check failed after retries. Dumping PM2 diagnostics..."
           pm2 status
-          pm2 logs coast-rate-source --lines 100 --nostream
+          pm2 logs web-api-landing-rate --lines 100 --nostream
           exit 1
