@@ -12,6 +12,9 @@ module.exports = {
       env_production: {
         NODE_ENV: 'production',
         PORT: 3002,
+        AWS_SECRETS_ENABLED: 'true',
+        AWS_SECRET_NAME: 'coastng-web-landing-BE-secrets-prod',
+        AWS_REGION: 'us-west-2',
       },
     },
   ],

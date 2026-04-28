@@ -50,7 +50,8 @@ jobs:
 
       - name: Restart PM2 app
         run: |
-          pm2 startOrReload ecosystem.config.cjs --env production
+          pm2 delete rate_source_backend || true
+          pm2 startOrReload ecosystem.config.cjs --env production --update-env
           pm2 save
 
       - name: Health check with retries
