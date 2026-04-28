@@ -50,8 +50,22 @@ jobs:
 
       - name: Restart PM2 app
         run: |
-          pm2 start ecosystem.config.cjs --env production || pm2 restart coast-rate-source
+          pm2 startOrReload ecosystem.config.cjs --env production
           pm2 save
 
-      - name: Health check
-        run: curl -fsS http://127.0.0.1:3002/health
+      - name: Health check with retries
+        run: |
+          for i in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:3002/health; then
+              echo "Health check passed"
+              exit 0
+            fi
+
+            echo "Health check attempt $i failed; retrying in 2s..."
+            sleep 2
+          done
+
+          echo "Health check failed after retries. Dumping PM2 diagnostics..."
+          pm2 status
+          pm2 logs coast-rate-source --lines 100 --nostream
+          exit 1
